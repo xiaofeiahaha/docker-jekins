@@ -9,9 +9,9 @@ WORKDIR ${DIR}
 COPY ${JENKINS_RPM_NAME} ${DIR}
 ## 依赖
 RUN  yum install -y initscripts \
-	 && yum -c /etc/yum.conf --installroot=${DIR}/jenkins --releasever=/ -y install java \
+	 && yum -y install java \
 	 && rpm -ivh ${JENKINS_RPM_NAME} \
-	 && yum -y install jenkins \
+	 && ln -s /var/lib/jenkins ${DIR}/jenkins \
 	 && rm -rf ${JENKINS_RPM_NAME}
 #服务暴露
 EXPOSE 8080/tcp	 
